@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  main:
+    image: qinyu/jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
+    secrets:
+      - jenkins-user
+      - jenkins-pass
+ 
+secrets:
+  jenkins-user:
+    external: true
+  jenkins-pass:
+    external: true

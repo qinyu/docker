@@ -1,0 +1,18 @@
+language: go
+go:
+- '1.0'
+- '1.3'
+env:
+  global:
+  - secure: rrqN/javoIE59EEXLwANuMGcg2qoJE83Yis+82TFiYcDhHdfLfDZ0bWMdivISXUKUxV+oQrqYED754NJsytEM9bB8ITbfNZXpU06vDg9pL7FP860lwyrzIvu1sxsqJNc6e5Nc68E/gEfzViwHYccQBtHpAIeF8GsN+BaY48Kfd1xlU1YikKefBehqSIT3C1WQQ+amEVFiBWireM7dObOcfjiCxDFgNE8F/wgUzWUYwgArQhc1c9zzqfkdhGhZ8Jk1y123jB61xq3GArLCfIXYuaNjox1u+YB51BaLFO6cTf+CcryhBuLiwCdpWY4Rdgb9zNN8hLjDfFFUHTH/cjjGtHJTIav6JWwKMFAy9uSfHtehOcDj6roUfzIoWVkSsDazK8pR+c4z5lzLTW6AAsQ/lCv8+Cnv94F7nHEWQ6ju65CPj1Jj/C+4NSFfwjRoY15eN/sCgv4Vao+Wgc0/hTvL0hgmjB6CGeKzqh+6UreR+oRt8cFni3GWyJA/9HMjPbdl5kbO33vFN8JFS4Tp3HrocE/TmrpsH7Pw47o9FOx14Z6PAKsJk8KoiON4hBWnoaFnv7SJmMu6Cj1aSYkc8s7ndedxZ/iCTkBv8ywUq9MOIB0CWT4JEs7NkFe4fEWbRpCp9Z6OSRZso+91k2u+YKh1gfwDJqNUdeQz0jAR4/WeKQ=
+  - secure: EHrH1By/uBsCTLE5Jfe3JF1A6B3WER7s3CRfW4V9DLZfLc5kNjpd3zvij+tw0b6FVVLFiz9sCzCeUBPRUEVnkK8H+EO82S3VFb/neMjSg1UHO10Jyvu+Po4EXZMo943b2j2NG5XV9xOnQ5HRKumUm7njuvxm0CnuWr8q+aRgIZue8Q79859Ckqg2ejeRhPS32HxyxKN02+MRyWGnClLhComd8nKzKDnzV3CYxrZ6CkzC9EoMHmBSzLDbYAhY9IGX4qAlsT7jhiwqltt5V+qdtclVtePitOZsffIiNwL9Vk1/SEZfDhbDXDv2Vah5pCIivH0wFU5cMnIe6G4fIs+qKs1QfXE6E5mBQH3Mekkc4MrFQXXE8MalSllz+Bs0HztyfWvJPSuGKGQsr6hYVwha9mAUCtok7q0GxCmHJeV2EXdm+olFzYRC406T/joJRsoShZQ06nXH8Gnu0bl3ki6HGxvH1PCKL/RpZl0Ptf//1JsEIrilT3CAikL9rRnBDd2leSxVT1dqYzkjIdaq1q1Tl68Pea3OZfIjkoWcjkxa+h15QR1ug3DPJ8xbWGYD5EgcuApU0nwHscw/Wj1QIcI7ksPIgUCuOMkvN1tE1puQ84BXT632XRtdjMrVZuyE/oV6MEid/Z8LbDcMRJZQ9IhCSsI+pwrZPvpomN4WeZsEz/U=
+  - secure: EUvgvWwgZ8Vv+LAyb069QusMNVsSIVGtA4VLcqvz1c4hsZODupVRee2pJyRrGXxKrja5loS7dmQwKe9WtNY8Ks9Wq5TkLmn8GtZpILCrreqPYce+eAhHSUbEd+e3mNK44rJVuDJ544oJilKmXQYtgr7tvPBwrpkV5rBtCHN/TNOdqZ+c/Jfi5Dzxu6hf/tPAmOeoPO6pSCZvB9EO1wL3krYAxxeYgyfmMbmfYYIWvs5Tqdfl/i77kD6v/kyxTunV/MaHmO7jEqKOmU1mlgVMXm3I1fllZgLstVleJ0+XLiEPR/HfbSEaXOwClJPEkO5ozuJaS/P9LNZzIi0vlvG0lmjSnodXof6G+P/ZFbp719weZlWtSIgBG2mHXJkym17Q/SxQJi/qIgVzoeOA7jJ0bni+v8rd1aFiHPUn56TSRP7EgryZX1fok44XISnKOJHPY9SsY8e4qc4AAO/sEt0xNliAjbYXWIdWnWC0YfNlIOSraNatotBluI3Nx6vWpgYtbjX+hG+PAA+ImLegxkbuBAqQifY9I++2A5KAuceTz9dPurAym6eN4wnORvfoODFEQvotvIgwJOp8mgFmbxtFgzJImcVBqeljqzunyQHuJ01bP5bSHRlP5RAxhWWR793B7+NBC2mHLqUSsiRH3JYQLNzgeL+Mnqh7lRlwzN1Umzc=
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - export REPO=$DOCKER_USER/jenkins
+  - docker build -f Dockerfile -t $REPO:$COMMIT jenkins-outofbox
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
