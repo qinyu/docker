@@ -3,10 +3,9 @@ sudo: required
 services:
   - docker
 
-language: go
-
-go:
-  - '1.5'
+language: node_js
+node_js:
+ — “4”
 
 env:
   global:
