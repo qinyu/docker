@@ -4,8 +4,9 @@ services:
   - docker
 
 language: node_js
+
 node_js:
-  — “4”
+  — "4"
 
 env:
   global:
