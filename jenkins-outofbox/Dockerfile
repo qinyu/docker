@@ -1,5 +1,5 @@
-FROM jenkins:2.60.3-alpine
-ARG VERSION=2.60.3-alpine
+FROM jenkins/jenkins:lts-alpine
+ARG VERSION=lts-alpine
 
 LABEL version=$VERSION \
     maintainer="qinyusuain@gmail.com"
