@@ -4,12 +4,11 @@ services:
   - docker
 
 language: node_js
-
 node_js:
   — "node"
 
 script:
-  — sleep 5
+  — echo hello
 
 env:
   global:
