@@ -1,6 +1,6 @@
 # 开箱即用的 Jenkins
 
-![qinyu/jenkins](https://img.shields.io/docker/automated/qinyu/jenkins.svg)
+![qinyu/jenkins/automated](https://img.shields.io/docker/automated/qinyu/jenkins.svg) ![qinyu/jenkins/build](https://img.shields.io/docker/build/qinyu/jenkins.svg) ![qinyu/jenkins/pulls](https://img.shields.io/docker/pulls/qinyu/jenkins.svg)
 
 - 创建指定管理员帐号([security.groovy](https://github.com/qinyu/docker/blob/master/jenkins-outofbox/security.groovy)，需要`docker secret`设置，后面详述)
 - [常用插件](https://github.com/qinyu/docker/blob/master/jenkins-outofbox/plugins.txt)已安装
