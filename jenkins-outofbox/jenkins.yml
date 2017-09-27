@@ -1,11 +1,12 @@
 version: '3.1'
 services:
   main:
-    image: qinyu/jenkins
+    image: qinyu/jenkins:latest
     ports:
       - 8080:8080
       - 50000:50000
     volumes:
+      - /var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
       - jenkins-user
