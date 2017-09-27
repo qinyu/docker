@@ -1,11 +1,13 @@
-开箱即用的 Jenkins
+# 开箱即用的 Jenkins
+
+![qinyu/jenkins](https://img.shields.io/docker/automated/qinyu/jenkins.svg)
 
 - 创建指定管理员帐号([security.groovy]()，需要`docker secret`设置，后面详述)
 - [常用插件](plugins.txt)已安装
 - Docker 已安装
 - jenkins 用户（Jenkins 默认启动用户）已加入 docker 用户组（只有设置 volume `/var/run/docker.sock` 的情况生效，见脚本[grant-jenkins-access-to-docker-socket.sh]()）
 
-使用：
+**使用方法**：
 
 1. 设置管理员帐号密码（下面例子用户名和秘码都是`admin`，可以自己调整）
 ```sh
